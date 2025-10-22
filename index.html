@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aguatería San Miguel - Agua Purificada de Calidad</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header y navegación */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: #2c7fb8;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #2c7fb8;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1545259743-7a0a8e413864?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #2c7fb8;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #1d5a85;
+        }
+        
+        /* Secciones */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: #2c7fb8;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Servicios */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-img {
+            height: 200px;
+            background-color: #e6f2ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .service-img i {
+            font-size: 4rem;
+            color: #2c7fb8;
+        }
+        
+        .service-content {
+            padding: 25px;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 15px;
+            color: #2c7fb8;
+        }
+        
+        /* Productos */
+        .products {
+            background-color: #f0f8ff;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        .product-icon {
+            font-size: 3rem;
+            color: #2c7fb8;
+            margin-bottom: 20px;
+        }
+        
+        .product-card h3 {
+            margin-bottom: 15px;
+            color: #2c7fb8;
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c7fb8;
+            margin: 15px 0;
+        }
+        
+        /* Sobre Nosotros */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #2c7fb8;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+        }
+        
+        .about-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Contacto */
+        .contact {
+            background-color: #f0f8ff;
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+            color: #2c7fb8;
+        }
+        
+        .contact-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #2c7fb8;
+            margin-right: 15px;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #2c7fb8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: #2c7fb8;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header y Navegación -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-tint" style="font-size: 2rem; color: #2c7fb8;"></i>
+                    <h1>Aguatería San Miguel</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h2>Agua Purificada de Calidad</h2>
+            <p>En Aguatería San Miguel nos dedicamos a proporcionar agua de la más alta calidad para tu hogar y negocio. Garantizamos pureza, sabor y bienestar en cada gota.</p>
+            <a href="#contacto" class="btn">Solicitar Servicio</a>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Servicios</h2>
+                <p>Ofrecemos una variedad de servicios para satisfacer todas tus necesidades de agua purificada</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Entrega a Domicilio</h3>
+                        <p>Llevamos el agua purificada directamente a tu hogar u oficina en el horario que más te convenga.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Recarga de Garrafones</h3>
+                        <p>Recarga tus garrafones con agua 100% purificada y tratada con los más altos estándares de calidad.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <i class="fas fa-filter"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Venta de Filtros</h3>
+                        <p>Ofrecemos filtros de agua de la mejor calidad para garantizar agua pura en tu hogar o negocio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Productos -->
+    <section class="products" id="productos">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Productos</h2>
+                <p>Conoce nuestra línea de productos de agua purificada para todas tus necesidades</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon">
+                        <i class="fas fa-wine-bottle"></i>
+                    </div>
+                    <h3>Garrafón 20L</h3>
+                    <p>Garrafón de agua purificada de 20 litros, ideal para hogares y pequeñas oficinas.</p>
+                    <div class="price">$35.00</div>
+                    <a href="#contacto" class="btn">Pedir Ahora</a>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">
+                        <i class="fas fa-wine-bottle"></i>
+                    </div>
+                    <h3>Garrafón 10L</h3>
+                    <p>Garrafón de agua purificada de 10 litros, perfecto para espacios reducidos.</p>
+                    <div class="price">$20.00</div>
+                    <a href="#contacto" class="btn">Pedir Ahora</a>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <h3>Botella 1L</h3>
+                    <p>Botella personal de agua purificada de 1 litro, ideal para llevar contigo.</p>
+                    <div class="price">$15.00</div>
+                    <a href="#contacto" class="btn">Pedir Ahora</a>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">
+                        <i class="fas fa-filter"></i>
+                    </div>
+                    <h3>Filtro de Agua</h3>
+                    <p>Sistema de filtración para hogar que garantiza agua purificada directamente del grifo.</p>
+                    <div class="price">$450.00</div>
+                    <a href="#contacto" class="btn">Pedir Ahora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Nosotros -->
+    <section id="nosotros">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre Nosotros</h2>
+                <p>Conoce más sobre nuestra historia y compromiso con la calidad</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Más de 15 años proporcionando agua de calidad</h3>
+                    <p>En Aguatería San Miguel comenzamos nuestra operación en 2008 con la misión de llevar agua purificada de la más alta calidad a los hogares de nuestra comunidad. Desde entonces, hemos crecido gracias a la confianza de nuestros clientes.</p>
+                    <p>Nuestro proceso de purificación incluye múltiples etapas: filtración, ósmosis inversa, ozonificación y luz ultravioleta, garantizando que cada gota de agua que entregamos esté libre de impurezas y microorganismos.</p>
+                    <p>Estamos comprometidos con el bienestar de nuestras familias y la comunidad, por eso mantenemos los más altos estándares de calidad en todos nuestros productos y servicios.</p>
+                    <a href="#contacto" class="btn">Contáctanos</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1564419434663-c4996736383f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Proceso de purificación de agua">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contact" id="contacto">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contáctanos</h2>
+                <p>Estamos aquí para servirte. Ponte en contacto con nosotros para cualquier consulta o pedido</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Información de Contacto</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Dirección</h4>
+                            <p>Av. Principal #123, Colonia Centro</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Teléfono</h4>
+                            <p>(123) 456-7890</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@aguateriasanmiguel.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Horario de Atención</h4>
+                            <p>Lunes a Sábado: 8:00 AM - 8:00 PM</p>
+                            <p>Domingo: 9:00 AM - 2:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="Nombre completo" required>
+                        <input type="email" placeholder="Correo electrónico" required>
+                        <input type="tel" placeholder="Teléfono">
+                        <textarea placeholder="Mensaje" required></textarea>
+                        <button type="submit" class="btn">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Aguatería San Miguel</h3>
+                    <p>Proveedores de agua purificada de calidad para hogares y negocios desde 2008.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Entrega a Domicilio</a></li>
+                        <li><a href="#">Recarga de Garrafones</a></li>
+                        <li><a href="#">Venta de Filtros</a></li>
+                        <li><a href="#">Purificación de Agua</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Suscríbete</h3>
+                    <p>Recibe ofertas especiales y novedades directamente en tu correo.</p>
+                    <form>
+                        <input type="email" placeholder="Tu correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 10px; border: none; border-radius: 5px;">
+                        <button type="submit" class="btn" style="width: 100%;">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Aguatería San Miguel. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menú móvil
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // Smooth scroll para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+```
+
+Características de la página web:
+
+1. Diseño profesional y responsive - Se adapta a todos los dispositivos
+2. Secciones bien estructuradas:
+   · Header con navegación
+   · Hero section con llamada a la acción
+   · Servicios ofrecidos
+   · Productos con precios
+   · Información sobre la empresa
+   · Formulario de contacto
+   · Footer completo
+3. Elementos visuales atractivos:
+   · Iconos de Font Awesome
+   · Colores relacionados con el agua (azules)
+   · Imágenes de fondo relevantes
+   · Efectos de hover en tarjetas
+4. Funcionalidades:
+   · Menú responsive para móviles
+   · Navegación suave entre secciones
+   · Formulario de contacto
+   · Enlaces a redes sociales
+
+Puedes personalizar fácilmente los textos, colores, imágenes y precios según tus necesidades específicas.
