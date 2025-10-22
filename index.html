@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aguatería San Miguel - Agua Purificada de Calidad</title>
+    <title>Aguatería San Miguel - Sistemas de Agua Pluvial</title>
     <style>
-        /* Estilos generales */
+        :root {
+            --primary: #2c7fb8;
+            --secondary: #1d5a85;
+            --accent: #4CAF50;
+            --light: #f0f8ff;
+            --dark: #333;
+            --gray: #666;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -15,7 +23,7 @@
         
         body {
             line-height: 1.6;
-            color: #333;
+            color: var(--dark);
             background-color: #f9f9f9;
         }
         
@@ -26,7 +34,7 @@
             padding: 0 15px;
         }
         
-        /* Header y navegación */
+        /* Header */
         header {
             background-color: #fff;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -39,7 +47,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 15px 0;
         }
         
         .logo {
@@ -47,14 +55,15 @@
             align-items: center;
         }
         
-        .logo img {
-            height: 50px;
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
             margin-right: 10px;
         }
         
         .logo h1 {
             font-size: 1.5rem;
-            color: #2c7fb8;
+            color: var(--primary);
         }
         
         .nav-links {
@@ -63,18 +72,18 @@
         }
         
         .nav-links li {
-            margin-left: 30px;
+            margin-left: 25px;
         }
         
         .nav-links a {
             text-decoration: none;
-            color: #333;
+            color: var(--dark);
             font-weight: 500;
             transition: color 0.3s;
         }
         
         .nav-links a:hover {
-            color: #2c7fb8;
+            color: var(--primary);
         }
         
         .mobile-menu {
@@ -85,11 +94,12 @@
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1545259743-7a0a8e413864?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1598974357801-cbca100e65d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 120px 0;
+            padding: 100px 0;
             text-align: center;
         }
         
@@ -106,17 +116,27 @@
         
         .btn {
             display: inline-block;
-            background-color: #2c7fb8;
+            background-color: var(--primary);
             color: white;
             padding: 12px 30px;
             border-radius: 5px;
             text-decoration: none;
             font-weight: 600;
             transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
         }
         
         .btn:hover {
-            background-color: #1d5a85;
+            background-color: var(--secondary);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+        }
+        
+        .btn-accent:hover {
+            background-color: #3d8b40;
         }
         
         /* Secciones */
@@ -131,12 +151,12 @@
         
         .section-title h2 {
             font-size: 2rem;
-            color: #2c7fb8;
+            color: var(--primary);
             margin-bottom: 15px;
         }
         
         .section-title p {
-            color: #666;
+            color: var(--gray);
             max-width: 700px;
             margin: 0 auto;
         }
@@ -162,7 +182,7 @@
         
         .service-img {
             height: 200px;
-            background-color: #e6f2ff;
+            background-color: var(--light);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -170,7 +190,7 @@
         
         .service-img i {
             font-size: 4rem;
-            color: #2c7fb8;
+            color: var(--primary);
         }
         
         .service-content {
@@ -179,82 +199,175 @@
         
         .service-content h3 {
             margin-bottom: 15px;
-            color: #2c7fb8;
+            color: var(--primary);
         }
         
-        /* Productos */
-        .products {
-            background-color: #f0f8ff;
+        /* Costos */
+        .costos {
+            background-color: var(--light);
         }
         
-        .products-grid {
+        .costos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
         
-        .product-card {
+        .costo-card {
             background-color: white;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             text-align: center;
             padding: 30px 20px;
+            border-top: 4px solid var(--primary);
         }
         
-        .product-icon {
+        .costo-card.accent {
+            border-top-color: var(--accent);
+        }
+        
+        .costo-icon {
             font-size: 3rem;
-            color: #2c7fb8;
+            color: var(--primary);
             margin-bottom: 20px;
         }
         
-        .product-card h3 {
+        .costo-card h3 {
             margin-bottom: 15px;
-            color: #2c7fb8;
+            color: var(--primary);
         }
         
         .price {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
-            color: #2c7fb8;
+            color: var(--primary);
             margin: 15px 0;
         }
         
-        /* Sobre Nosotros */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
+        .price span {
+            font-size: 1rem;
+            color: var(--gray);
         }
         
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #2c7fb8;
+        .costo-features {
+            list-style: none;
+            margin: 20px 0;
+            text-align: left;
         }
         
-        .about-text p {
-            margin-bottom: 20px;
+        .costo-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
         }
         
-        .about-image {
+        .costo-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .costo-features li i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+        
+        /* Usuarios */
+        .users-table-container {
+            background-color: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
         }
         
-        .about-image img {
+        .users-table {
             width: 100%;
-            height: auto;
-            display: block;
+            border-collapse: collapse;
+        }
+        
+        .users-table th, .users-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .users-table th {
+            background-color: var(--light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .users-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status.active {
+            background-color: #e8f5e8;
+            color: var(--accent);
+        }
+        
+        .status.pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        /* Proceso */
+        .process {
+            background-color: var(--light);
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 50px;
+        }
+        
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--primary);
+            z-index: 1;
+        }
+        
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .step-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
         }
         
         /* Contacto */
-        .contact {
-            background-color: #f0f8ff;
-        }
-        
         .contact-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -263,7 +376,7 @@
         
         .contact-info h3 {
             margin-bottom: 20px;
-            color: #2c7fb8;
+            color: var(--primary);
         }
         
         .contact-item {
@@ -273,12 +386,14 @@
         
         .contact-icon {
             font-size: 1.5rem;
-            color: #2c7fb8;
+            color: var(--primary);
             margin-right: 15px;
+            min-width: 30px;
         }
         
         .contact-form input,
-        .contact-form textarea {
+        .contact-form textarea,
+        .contact-form select {
             width: 100%;
             padding: 12px;
             margin-bottom: 20px;
@@ -326,7 +441,7 @@
         }
         
         .footer-links a:hover {
-            color: #2c7fb8;
+            color: var(--primary);
         }
         
         .social-links {
@@ -348,7 +463,7 @@
         }
         
         .social-links a:hover {
-            background-color: #2c7fb8;
+            background-color: var(--primary);
         }
         
         .copyright {
@@ -369,7 +484,6 @@
                 display: block;
             }
             
-            .about-content,
             .contact-content {
                 grid-template-columns: 1fr;
             }
@@ -381,6 +495,18 @@
             .hero p {
                 font-size: 1rem;
             }
+            
+            .process-steps {
+                flex-direction: column;
+            }
+            
+            .process-steps::before {
+                display: none;
+            }
+            
+            .process-step {
+                margin-bottom: 30px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -391,14 +517,15 @@
         <div class="container">
             <nav class="navbar">
                 <div class="logo">
-                    <i class="fas fa-tint" style="font-size: 2rem; color: #2c7fb8;"></i>
+                    <i class="fas fa-cloud-rain"></i>
                     <h1>Aguatería San Miguel</h1>
                 </div>
                 <ul class="nav-links">
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#productos">Productos</a></li>
-                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#costos">Costos</a></li>
+                    <li><a href="#usuarios">Usuarios</a></li>
+                    <li><a href="#proceso">Proceso</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
                 <div class="mobile-menu">
@@ -411,9 +538,9 @@
     <!-- Hero Section -->
     <section class="hero" id="inicio">
         <div class="container">
-            <h2>Agua Purificada de Calidad</h2>
-            <p>En Aguatería San Miguel nos dedicamos a proporcionar agua de la más alta calidad para tu hogar y negocio. Garantizamos pureza, sabor y bienestar en cada gota.</p>
-            <a href="#contacto" class="btn">Solicitar Servicio</a>
+            <h2>Sistemas de Captación y Tratamiento de Agua Pluvial</h2>
+            <p>Soluciones sostenibles para el aprovechamiento del agua de lluvia. Instalación, mantenimiento y distribución de sistemas pluviales para hogares y empresas.</p>
+            <a href="#contacto" class="btn">Solicitar Cotización</a>
         </div>
     </section>
 
@@ -422,116 +549,203 @@
         <div class="container">
             <div class="section-title">
                 <h2>Nuestros Servicios</h2>
-                <p>Ofrecemos una variedad de servicios para satisfacer todas tus necesidades de agua purificada</p>
+                <p>Ofrecemos soluciones completas para el aprovechamiento del agua pluvial</p>
             </div>
             <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Captación Pluvial</h3>
+                        <p>Diseño e instalación de sistemas de captación de agua de lluvia con canaletas, filtros y tanques de almacenamiento.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <i class="fas fa-filter"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Tratamiento y Purificación</h3>
+                        <p>Sistemas de filtración y purificación para convertir el agua pluvial en apta para diferentes usos domésticos.</p>
+                    </div>
+                </div>
                 <div class="service-card">
                     <div class="service-img">
                         <i class="fas fa-truck"></i>
                     </div>
                     <div class="service-content">
-                        <h3>Entrega a Domicilio</h3>
-                        <p>Llevamos el agua purificada directamente a tu hogar u oficina en el horario que más te convenga.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-img">
-                        <i class="fas fa-recycle"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Recarga de Garrafones</h3>
-                        <p>Recarga tus garrafones con agua 100% purificada y tratada con los más altos estándares de calidad.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-img">
-                        <i class="fas fa-filter"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Venta de Filtros</h3>
-                        <p>Ofrecemos filtros de agua de la mejor calidad para garantizar agua pura en tu hogar o negocio.</p>
+                        <h3>Distribución y Conexión</h3>
+                        <p>Instalación de redes de distribución y conexión de sistemas pluviales a la infraestructura existente.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Productos -->
-    <section class="products" id="productos">
+    <!-- Costos -->
+    <section class="costos" id="costos">
         <div class="container">
             <div class="section-title">
-                <h2>Nuestros Productos</h2>
-                <p>Conoce nuestra línea de productos de agua purificada para todas tus necesidades</p>
+                <h2>Costos de Conexión y Extensión</h2>
+                <p>Precios transparentes para nuestros servicios de agua pluvial</p>
             </div>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-icon">
-                        <i class="fas fa-wine-bottle"></i>
+            <div class="costos-grid">
+                <div class="costo-card">
+                    <div class="costo-icon">
+                        <i class="fas fa-home"></i>
                     </div>
-                    <h3>Garrafón 20L</h3>
-                    <p>Garrafón de agua purificada de 20 litros, ideal para hogares y pequeñas oficinas.</p>
-                    <div class="price">$35.00</div>
-                    <a href="#contacto" class="btn">Pedir Ahora</a>
+                    <h3>Conexión Residencial</h3>
+                    <div class="price">$2,500 <span>MXN</span></div>
+                    <ul class="costo-features">
+                        <li><i class="fas fa-check"></i> Instalación básica de captación</li>
+                        <li><i class="fas fa-check"></i> Tanque de 1,000 litros</li>
+                        <li><i class="fas fa-check"></i> Filtro primario</li>
+                        <li><i class="fas fa-check"></i> Conexión a sanitarios</li>
+                        <li><i class="fas fa-check"></i> Garantía de 1 año</li>
+                    </ul>
+                    <a href="#contacto" class="btn">Solicitar</a>
                 </div>
-                <div class="product-card">
-                    <div class="product-icon">
-                        <i class="fas fa-wine-bottle"></i>
+                <div class="costo-card accent">
+                    <div class="costo-icon">
+                        <i class="fas fa-building"></i>
                     </div>
-                    <h3>Garrafón 10L</h3>
-                    <p>Garrafón de agua purificada de 10 litros, perfecto para espacios reducidos.</p>
-                    <div class="price">$20.00</div>
-                    <a href="#contacto" class="btn">Pedir Ahora</a>
+                    <h3>Conexión Comercial</h3>
+                    <div class="price">$8,500 <span>MXN</span></div>
+                    <ul class="costo-features">
+                        <li><i class="fas fa-check"></i> Sistema de captación completo</li>
+                        <li><i class="fas fa-check"></i> Tanque de 5,000 litros</li>
+                        <li><i class="fas fa-check"></i> Filtración múltiple</li>
+                        <li><i class="fas fa-check"></i> Sistema de bombeo</li>
+                        <li><i class="fas fa-check"></i> Garantía de 2 años</li>
+                    </ul>
+                    <a href="#contacto" class="btn btn-accent">Solicitar</a>
                 </div>
-                <div class="product-card">
-                    <div class="product-icon">
-                        <i class="fas fa-box"></i>
+                <div class="costo-card">
+                    <div class="costo-icon">
+                        <i class="fas fa-expand-arrows-alt"></i>
                     </div>
-                    <h3>Botella 1L</h3>
-                    <p>Botella personal de agua purificada de 1 litro, ideal para llevar contigo.</p>
-                    <div class="price">$15.00</div>
-                    <a href="#contacto" class="btn">Pedir Ahora</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">
-                        <i class="fas fa-filter"></i>
-                    </div>
-                    <h3>Filtro de Agua</h3>
-                    <p>Sistema de filtración para hogar que garantiza agua purificada directamente del grifo.</p>
-                    <div class="price">$450.00</div>
-                    <a href="#contacto" class="btn">Pedir Ahora</a>
+                    <h3>Extensión de Red</h3>
+                    <div class="price">$450 <span>MXN/m</span></div>
+                    <ul class="costo-features">
+                        <li><i class="fas fa-check"></i> Por metro lineal de tubería</li>
+                        <li><i class="fas fa-check"></i> Incluye materiales</li>
+                        <li><i class="fas fa-check"></i> Incluye mano de obra</li>
+                        <li><i class="fas fa-check"></i> Pruebas de presión</li>
+                        <li><i class="fas fa-check"></i> Garantía de 6 meses</li>
+                    </ul>
+                    <a href="#contacto" class="btn">Solicitar</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sobre Nosotros -->
-    <section id="nosotros">
+    <!-- Usuarios -->
+    <section id="usuarios">
         <div class="container">
             <div class="section-title">
-                <h2>Sobre Nosotros</h2>
-                <p>Conoce más sobre nuestra historia y compromiso con la calidad</p>
+                <h2>Lista de Usuarios Conectados</h2>
+                <p>Clientes que ya disfrutan de nuestros sistemas de agua pluvial</p>
             </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Más de 15 años proporcionando agua de calidad</h3>
-                    <p>En Aguatería San Miguel comenzamos nuestra operación en 2008 con la misión de llevar agua purificada de la más alta calidad a los hogares de nuestra comunidad. Desde entonces, hemos crecido gracias a la confianza de nuestros clientes.</p>
-                    <p>Nuestro proceso de purificación incluye múltiples etapas: filtración, ósmosis inversa, ozonificación y luz ultravioleta, garantizando que cada gota de agua que entregamos esté libre de impurezas y microorganismos.</p>
-                    <p>Estamos comprometidos con el bienestar de nuestras familias y la comunidad, por eso mantenemos los más altos estándares de calidad en todos nuestros productos y servicios.</p>
-                    <a href="#contacto" class="btn">Contáctanos</a>
+            <div class="users-table-container">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Dirección</th>
+                            <th>Tipo de Conexión</th>
+                            <th>Fecha de Instalación</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Juan Pérez García</td>
+                            <td>Av. Central #123, Col. Centro</td>
+                            <td>Residencial Básica</td>
+                            <td>15/03/2024</td>
+                            <td><span class="status active">Activo</span></td>
+                        </tr>
+                        <tr>
+                            <td>María Rodríguez López</td>
+                            <td>Calle Flores #45, Col. Jardines</td>
+                            <td>Residencial Completa</td>
+                            <td>22/03/2024</td>
+                            <td><span class="status active">Activo</span></td>
+                        </tr>
+                        <tr>
+                            <td>Restaurant "El Sazón"</td>
+                            <td>Plaza Comercial #78</td>
+                            <td>Comercial</td>
+                            <td>05/04/2024</td>
+                            <td><span class="status active">Activo</span></td>
+                        </tr>
+                        <tr>
+                            <td>Carlos Hernández</td>
+                            <td>Privada Roble #12</td>
+                            <td>Residencial Básica</td>
+                            <td>18/04/2024</td>
+                            <td><span class="status pending">En Proceso</span></td>
+                        </tr>
+                        <tr>
+                            <td>Escuela Primaria Federal</td>
+                            <td>Av. Educación #200</td>
+                            <td>Comercial Extendida</td>
+                            <td>10/05/2024</td>
+                            <td><span class="status active">Activo</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso -->
+    <section class="process" id="proceso">
+        <div class="container">
+            <div class="section-title">
+                <h2>Proceso de Instalación</h2>
+                <p>Cómo implementamos tu sistema de agua pluvial paso a paso</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Evaluación</h3>
+                        <p>Analizamos tu propiedad y necesidades para diseñar el sistema ideal</p>
+                    </div>
                 </div>
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1564419434663-c4996736383f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Proceso de purificación de agua">
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Cotización</h3>
+                        <p>Te presentamos un presupuesto detallado sin compromiso</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Instalación</h3>
+                        <p>Nuestro equipo realiza la instalación completa en 2-3 días</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Capacitación</h3>
+                        <p>Te enseñamos a operar y mantener tu sistema correctamente</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contacto -->
-    <section class="contact" id="contacto">
+    <section id="contacto">
         <div class="container">
             <div class="section-title">
-                <h2>Contáctanos</h2>
-                <p>Estamos aquí para servirte. Ponte en contacto con nosotros para cualquier consulta o pedido</p>
+                <h2>Contacto</h2>
+                <p>Solicita tu cotización o resuelve tus dudas sobre nuestros servicios</p>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
@@ -542,7 +756,7 @@
                         </div>
                         <div>
                             <h4>Dirección</h4>
-                            <p>Av. Principal #123, Colonia Centro</p>
+                            <p>Av. Principal #123, Colonia Centro, San Miguel</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -569,18 +783,26 @@
                         </div>
                         <div>
                             <h4>Horario de Atención</h4>
-                            <p>Lunes a Sábado: 8:00 AM - 8:00 PM</p>
-                            <p>Domingo: 9:00 AM - 2:00 PM</p>
+                            <p>Lunes a Viernes: 8:00 AM - 6:00 PM</p>
+                            <p>Sábado: 9:00 AM - 2:00 PM</p>
                         </div>
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form>
+                    <form id="contactForm">
                         <input type="text" placeholder="Nombre completo" required>
                         <input type="email" placeholder="Correo electrónico" required>
                         <input type="tel" placeholder="Teléfono">
-                        <textarea placeholder="Mensaje" required></textarea>
-                        <button type="submit" class="btn">Enviar Mensaje</button>
+                        <select required>
+                            <option value="">Selecciona un servicio</option>
+                            <option value="residencial">Conexión Residencial</option>
+                            <option value="comercial">Conexión Comercial</option>
+                            <option value="extension">Extensión de Red</option>
+                            <option value="mantenimiento">Mantenimiento</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        <textarea placeholder="Mensaje o detalles de tu solicitud" required></textarea>
+                        <button type="submit" class="btn">Enviar Solicitud</button>
                     </form>
                 </div>
             </div>
@@ -593,7 +815,7 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>Aguatería San Miguel</h3>
-                    <p>Proveedores de agua purificada de calidad para hogares y negocios desde 2008.</p>
+                    <p>Especialistas en sistemas de captación, tratamiento y distribución de agua pluvial para un futuro sostenible.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
@@ -601,27 +823,27 @@
                     </div>
                 </div>
                 <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <ul class="footer-links">
+                        <li><a href="#servicios">Captación Pluvial</a></li>
+                        <li><a href="#servicios">Tratamiento de Agua</a></li>
+                        <li><a href="#servicios">Distribución</a></li>
+                        <li><a href="#servicios">Mantenimiento</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
                     <h3>Enlaces Rápidos</h3>
                     <ul class="footer-links">
                         <li><a href="#inicio">Inicio</a></li>
-                        <li><a href="#servicios">Servicios</a></li>
-                        <li><a href="#productos">Productos</a></li>
-                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#costos">Costos</a></li>
+                        <li><a href="#usuarios">Usuarios</a></li>
+                        <li><a href="#proceso">Proceso</a></li>
                         <li><a href="#contacto">Contacto</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Servicios</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Entrega a Domicilio</a></li>
-                        <li><a href="#">Recarga de Garrafones</a></li>
-                        <li><a href="#">Venta de Filtros</a></li>
-                        <li><a href="#">Purificación de Agua</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
                     <h3>Suscríbete</h3>
-                    <p>Recibe ofertas especiales y novedades directamente en tu correo.</p>
+                    <p>Recibe información sobre mantenimiento y promociones especiales.</p>
                     <form>
                         <input type="email" placeholder="Tu correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 10px; border: none; border-radius: 5px;">
                         <button type="submit" class="btn" style="width: 100%;">Suscribirse</button>
@@ -629,7 +851,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 Aguatería San Miguel. Todos los derechos reservados.</p>
+                <p>&copy; 2024 Aguatería San Miguel. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
@@ -656,6 +878,13 @@
                     });
                 }
             });
+        });
+        
+        // Manejo del formulario de contacto
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu solicitud! Nos pondremos en contacto contigo pronto.');
+            this.reset();
         });
     </script>
 </body>
