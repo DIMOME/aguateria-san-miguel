@@ -5,866 +5,1106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aguatería San Miguel - Servicio de Agua Potable</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
-        :root {
-            --primary: #2c7fb8;
-            --secondary: #1d5a85;
-            --accent: #4CAF50;
-            --light: #f0f8ff;
-            --dark: #333;
-            --gray: #666;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        :root {
+            --primary: #1e88e5;
+            --secondary: #0d47a1;
+            --light-blue: #bbdefb;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --dark-gray: #424242;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+        }
+
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--dark);
-            background-color: #f9f9f9;
+            color: var(--dark-gray);
         }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
+
         /* Header */
         header {
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
-        .navbar {
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
         }
-        
+
         .logo i {
             font-size: 2rem;
-            color: var(--primary);
-            margin-right: 10px;
         }
-        
-        .logo h1 {
-            font-size: 1.5rem;
-            color: var(--primary);
-        }
-        
+
         .nav-links {
             display: flex;
+            gap: 2rem;
             list-style: none;
         }
-        
-        .nav-links li {
-            margin-left: 25px;
-        }
-        
+
         .nav-links a {
+            color: var(--white);
             text-decoration: none;
-            color: var(--dark);
+            transition: opacity 0.3s;
             font-weight: 500;
-            transition: color 0.3s;
         }
-        
+
         .nav-links a:hover {
-            color: var(--primary);
+            opacity: 0.8;
         }
-        
-        .mobile-menu {
+
+        .menu-toggle {
             display: none;
+            background: none;
+            border: none;
+            color: var(--white);
             font-size: 1.5rem;
             cursor: pointer;
         }
-        
+
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1545259743-7a0a8e413864?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            margin-top: 70px;
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.9), rgba(13, 71, 161, 0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><path fill="%23e3f2fd" d="M0,300 Q300,200 600,300 T1200,300 L1200,600 L0,600 Z"/></svg>');
             background-size: cover;
             background-position: center;
-            color: white;
-            padding: 100px 0;
+            color: var(--white);
+            padding: 6rem 2rem;
             text-align: center;
         }
-        
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s;
         }
-        
+
         .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s;
         }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background-color: var(--secondary);
-        }
-        
-        .btn-accent {
-            background-color: var(--accent);
-        }
-        
-        .btn-accent:hover {
-            background-color: #3d8b40;
-        }
-        
-        /* Secciones */
-        section {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-title h2 {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        /* Informaciones */
-        .informaciones {
-            background-color: var(--light);
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .info-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-        
-        .info-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .info-img {
-            height: 200px;
-            background-color: var(--light);
+
+        .cta-buttons {
             display: flex;
-            align-items: center;
+            gap: 1rem;
             justify-content: center;
+            flex-wrap: wrap;
         }
-        
-        .info-img i {
-            font-size: 4rem;
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--white);
             color: var(--primary);
         }
-        
-        .info-content {
-            padding: 25px;
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-        
-        .info-content h3 {
-            margin-bottom: 15px;
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
             color: var(--primary);
         }
-        
-        /* Servicios */
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        /* Services */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
-        
+
         .service-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             transition: transform 0.3s;
         }
-        
+
         .service-card:hover {
             transform: translateY(-10px);
         }
-        
-        .service-img {
-            height: 200px;
-            background-color: var(--light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .service-img i {
-            font-size: 4rem;
-            color: var(--primary);
-        }
-        
-        .service-content {
-            padding: 25px;
-        }
-        
-        .service-content h3 {
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-        
-        /* Costos */
-        .costos {
-            background-color: var(--light);
-        }
-        
-        .costos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .costo-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            padding: 30px 20px;
-            border-top: 4px solid var(--primary);
-        }
-        
-        .costo-card.accent {
-            border-top-color: var(--accent);
-        }
-        
-        .costo-icon {
+
+        .service-card i {
             font-size: 3rem;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
         }
-        
-        .costo-card h3 {
-            margin-bottom: 15px;
-            color: var(--primary);
+
+        .service-card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
         }
-        
-        .price {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin: 15px 0;
+
+        /* Contact Info */
+        .contact-info {
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
         }
-        
-        .price span {
-            font-size: 1rem;
-            color: var(--gray);
-        }
-        
-        .costo-features {
-            list-style: none;
-            margin: 20px 0;
-            text-align: left;
-        }
-        
-        .costo-features li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .costo-features li:last-child {
-            border-bottom: none;
-        }
-        
-        .costo-features li i {
-            color: var(--accent);
-            margin-right: 10px;
-        }
-        
-        /* Usuarios */
-        .users-table-container {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            overflow-x: auto;
-        }
-        
-        .users-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .users-table th, .users-table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .users-table th {
-            background-color: var(--light);
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        .users-table tr:hover {
-            background-color: #f5f5f5;
-        }
-        
-        .status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .status.active {
-            background-color: #e8f5e8;
-            color: var(--accent);
-        }
-        
-        .status.pending {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-        
-        /* Contacto */
-        .contact-content {
+
+        .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
         }
-        
-        .contact-info h3 {
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-        
+
         .contact-item {
             display: flex;
-            margin-bottom: 20px;
+            align-items: center;
+            gap: 1rem;
         }
-        
-        .contact-icon {
-            font-size: 1.5rem;
+
+        .contact-item i {
+            font-size: 2rem;
             color: var(--primary);
-            margin-right: 15px;
-            min-width: 30px;
         }
-        
-        .contact-form input,
-        .contact-form textarea,
-        .contact-form select {
+
+        /* Forms */
+        .form-container {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 0.8rem;
+            border: 2px solid var(--light-blue);
+            border-radius: 8px;
             font-size: 1rem;
+            transition: border-color 0.3s;
         }
-        
-        .contact-form textarea {
-            height: 150px;
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
             resize: vertical;
         }
-        
+
+        /* User Panel */
+        .user-panel {
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .account-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .info-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        /* Map */
+        #map {
+            height: 400px;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .status-pending {
+            background: var(--warning);
+            color: var(--white);
+        }
+
+        .status-processing {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .status-resolved {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Footer */
         footer {
-            background-color: #2c3e50;
-            color: white;
-            padding: 50px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column h3 {
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: #ddd;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-        
-        .social-links a:hover {
-            background-color: var(--primary);
-        }
-        
-        .copyright {
+            background: var(--secondary);
+            color: var(--white);
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-            color: #aaa;
+            padding: 2rem;
+            margin-top: 4rem;
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--secondary);
+                padding: 1rem;
             }
-            
-            .mobile-menu {
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
                 display: block;
             }
-            
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero h2 {
+
+            .hero h1 {
                 font-size: 2rem;
             }
-            
+
             .hero p {
                 font-size: 1rem;
             }
         }
+
+        .file-upload {
+            border: 2px dashed var(--primary);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .file-upload:hover {
+            background: var(--light-blue);
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            background: var(--gray);
+            color: var(--dark-gray);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     </style>
 </head>
 <body>
-    <!-- Header y Navegación -->
     <header>
-        <div class="container">
-            <nav class="navbar">
-                <div class="logo">
-                    <i class="fas fa-tint"></i>
-                    <h1>Aguatería San Miguel</h1>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#informaciones">Informaciones</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#costos">Costos</a></li>
-                    <li><a href="#usuarios">Usuarios</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                </ul>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </nav>
-        </div>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <span>Aguatería San Miguel</span>
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showSection('inicio')"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="#" onclick="showSection('usuarios')"><i class="fas fa-user"></i> Usuarios</a></li>
+                <li><a href="#" onclick="showSection('reclamos')"><i class="fas fa-exclamation-circle"></i> Reclamos</a></li>
+                <li><a href="#" onclick="showSection('contacto')"><i class="fas fa-phone"></i> Contacto</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="inicio">
-        <div class="container">
-            <h2>Servicio de Agua Potable de Calidad</h2>
-            <p>En Aguatería San Miguel nos dedicamos a proporcionar agua potable de la más alta calidad para tu hogar y negocio. Garantizamos pureza, sabor y bienestar en cada gota.</p>
-            <a href="#contacto" class="btn">Solicitar Conexión</a>
+    <div class="hero">
+        <h1>Aguatería San Miguel</h1>
+        <p>Servicio de agua potable confiable para tu hogar y negocio</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary" onclick="showSection('usuarios')">Acceder a Mi Cuenta</a>
+            <a href="#" class="btn btn-secondary" onclick="showSection('reclamos')">Reportar Problema</a>
         </div>
-    </section>
+    </div>
 
-    <!-- Informaciones -->
-    <section class="informaciones" id="informaciones">
+    <!-- SECCIÓN INICIO -->
+    <section id="inicio" class="section active">
         <div class="container">
-            <div class="section-title">
-                <h2>Informaciones</h2>
-                <p>Conoce más sobre nuestro servicio de agua potable</p>
-            </div>
-            <div class="info-grid">
-                <div class="info-card">
-                    <div class="info-img">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <div class="info-content">
-                        <h3>Calidad del Agua</h3>
-                        <p>Nuestro agua pasa por rigurosos controles de calidad y cumple con todas las normas sanitarias para garantizar su potabilidad.</p>
-                    </div>
-                </div>
-                <div class="info-card">
-                    <div class="info-img">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="info-content">
-                        <h3>Seguridad y Confianza</h3>
-                        <p>Más de 20 años brindando servicio confiable a la comunidad con los más altos estándares de seguridad.</p>
-                    </div>
-                </div>
-                <div class="info-card">
-                    <div class="info-img">
-                        <i class="fas fa-hand-holding-water"></i>
-                    </div>
-                    <div class="info-content">
-                        <h3>Compromiso Social</h3>
-                        <p>Trabajamos para llevar agua potable a todos los hogares, contribuyendo al bienestar de nuestra comunidad.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            <h2 style="text-align: center; color: var(--secondary); margin-bottom: 1rem;">Nuestros Servicios</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">
+                En Aguatería San Miguel nos dedicamos a brindar un servicio de agua potable de calidad, 
+                garantizando el suministro continuo y el mantenimiento de las redes de distribución.
+            </p>
 
-    <!-- Servicios -->
-    <section id="servicios">
-        <div class="container">
-            <div class="section-title">
-                <h2>Nuestros Servicios</h2>
-                <p>Ofrecemos una variedad de servicios para satisfacer todas tus necesidades de agua potable</p>
-            </div>
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-img">
-                        <i class="fas fa-truck"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Conexión de Agua Potable</h3>
-                        <p>Instalación completa de conexión de agua potable a tu hogar o negocio con todos los estándares de calidad.</p>
-                    </div>
+                    <i class="fas fa-water"></i>
+                    <h3>Suministro de Agua</h3>
+                    <p>Agua potable de calidad las 24 horas del día para tu hogar o negocio.</p>
                 </div>
                 <div class="service-card">
-                    <div class="service-img">
-                        <i class="fas fa-wrench"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Mantenimiento y Reparaciones</h3>
-                        <p>Servicio técnico especializado para mantenimiento y reparación de tuberías y conexiones de agua.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-img">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Extensiones de Red</h3>
-                        <p>Ampliación de la red de distribución para llevar el servicio a nuevas zonas y urbanizaciones.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Costos -->
-    <section class="costos" id="costos">
-        <div class="container">
-            <div class="section-title">
-                <h2>Costos de Conexión y Servicios</h2>
-                <p>Precios transparentes para nuestros servicios de agua potable</p>
-            </div>
-            <div class="costos-grid">
-                <div class="costo-card">
-                    <div class="costo-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <h3>Conexión Residencial</h3>
-                    <div class="price">$350,000 <span>Gs</span></div>
-                    <ul class="costo-features">
-                        <li><i class="fas fa-check"></i> Instalación completa</li>
-                        <li><i class="fas fa-check"></i> Medidor de consumo</li>
-                        <li><i class="fas fa-check"></i> Conexión a red principal</li>
-                        <li><i class="fas fa-check"></i> Garantía de 1 año</li>
-                    </ul>
-                    <a href="#contacto" class="btn">Solicitar</a>
-                </div>
-                <div class="costo-card accent">
-                    <div class="costo-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h3>Conexión Comercial</h3>
-                    <div class="price">$650,000 <span>Gs</span></div>
-                    <ul class="costo-features">
-                        <li><i class="fas fa-check"></i> Instalación completa</li>
-                        <li><i class="fas fa-check"></i> Medidor comercial</li>
-                        <li><i class="fas fa-check"></i> Conexión a red principal</li>
-                        <li><i class="fas fa-check"></i> Garantía de 2 años</li>
-                    </ul>
-                    <a href="#contacto" class="btn btn-accent">Solicitar</a>
-                </div>
-                <div class="costo-card">
-                    <div class="costo-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
+                    <i class="fas fa-tools"></i>
                     <h3>Mantenimiento</h3>
-                    <div class="price">$150,000 <span>Gs/mes</span></div>
-                    <ul class="costo-features">
-                        <li><i class="fas fa-check"></i> Revisión mensual</li>
-                        <li><i class="fas fa-check"></i> Reparaciones menores</li>
-                        <li><i class="fas fa-check"></i> Limpieza de tuberías</li>
-                        <li><i class="fas fa-check"></i> Asesoría técnica</li>
-                    </ul>
-                    <a href="#contacto" class="btn">Contratar</a>
+                    <p>Servicio técnico especializado para el mantenimiento de redes y cañerías.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>Atención al Cliente</h3>
+                    <p>Equipo disponible para resolver tus consultas y atender tus reclamos.</p>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <h3 style="color: var(--secondary); margin-bottom: 1rem;">Información de Contacto</h3>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Teléfono</strong>
+                            <p>0800-555-AGUA (2482)</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <p>info@aguateriasanmiguel.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Dirección</strong>
+                            <p>Av. Principal 1234, San Miguel</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Horario</strong>
+                            <p>Lun-Vie: 8:00-18:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: var(--light-blue); padding: 2rem; border-radius: 15px; margin-top: 3rem; text-align: center;">
+                <h3 style="color: var(--secondary); margin-bottom: 1rem;">
+                    <i class="fas fa-bullhorn"></i> Avisos Importantes
+                </h3>
+                <p><strong>Mantenimiento Programado:</strong> El día 25/10/2025 habrá corte de servicio de 10:00 a 14:00 en el sector Norte.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN USUARIOS -->
+    <section id="usuarios" class="section">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--secondary); margin-bottom: 2rem;">Portal de Usuarios</h2>
+
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showUserTab('login')">Iniciar Sesión</button>
+                <button class="tab-btn" onclick="showUserTab('registro')">Crear Cuenta</button>
+                <button class="tab-btn" onclick="showUserTab('recuperar')">Recuperar Cuenta</button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="form-container">
+                <h3 style="color: var(--secondary); margin-bottom: 1.5rem;">Iniciar Sesión</h3>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Número de Cliente o Email</label>
+                        <input type="text" required placeholder="Ingrese su número de cliente o email">
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <input type="password" required placeholder="Ingrese su contraseña">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i> Ingresar
+                    </button>
+                </form>
+            </div>
+
+            <!-- Registro Form -->
+            <div id="registroForm" class="form-container" style="display: none;">
+                <h3 style="color: var(--secondary); margin-bottom: 1.5rem;">Crear Cuenta Nueva</h3>
+                <form onsubmit="handleRegistro(event)">
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" required placeholder="Ej: Juan Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" required placeholder="ejemplo@correo.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Número de Cliente</label>
+                        <input type="text" required placeholder="Ingrese su número de cliente">
+                    </div>
+                    <div class="form-group">
+                        <label>Dirección</label>
+                        <input type="text" required placeholder="Calle y número">
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <input type="password" required placeholder="Mínimo 8 caracteres">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmar Contraseña</label>
+                        <input type="password" required placeholder="Repita su contraseña">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-user-plus"></i> Registrarse
+                    </button>
+                </form>
+            </div>
+
+            <!-- Recuperar Form -->
+            <div id="recuperarForm" class="form-container" style="display: none;">
+                <h3 style="color: var(--secondary); margin-bottom: 1.5rem;">Recuperar Cuenta</h3>
+                <form onsubmit="handleRecuperar(event)">
+                    <div class="form-group">
+                        <label>Correo Electrónico o Número de Cliente</label>
+                        <input type="text" required placeholder="Ingrese su email o número de cliente">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-key"></i> Enviar Enlace de Recuperación
+                    </button>
+                </form>
+            </div>
+
+            <!-- User Panel (hidden by default) -->
+            <div id="userPanel" class="user-panel" style="display: none;">
+                <h3 style="color: var(--secondary); margin-bottom: 1rem;">
+                    <i class="fas fa-user-circle"></i> Bienvenido, <span id="userName"></span>
+                </h3>
+                <div class="account-info">
+                    <div class="info-card">
+                        <h4>Saldo Actual</h4>
+                        <p>$2,450.00</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Consumo del Mes</h4>
+                        <p>35 m³</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Último Pago</h4>
+                        <p>15/10/2025</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>Estado del Servicio</h4>
+                        <p style="color: var(--success);">Activo</p>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-file-invoice-dollar"></i> Ver Factura
+                    </button>
+                    <button class="btn btn-secondary" style="background: var(--primary); color: white;">
+                        <i class="fas fa-credit-card"></i> Pagar Ahora
+                    </button>
+                    <button class="btn btn-secondary" style="background: var(--dark-gray); color: white;" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Usuarios -->
-    <section id="usuarios">
+    <!-- SECCIÓN RECLAMOS -->
+    <section id="reclamos" class="section">
         <div class="container">
-            <div class="section-title">
-                <h2>Usuarios Conectados</h2>
-                <p>Clientes que ya disfrutan de nuestro servicio de agua potable</p>
-            </div>
-            <div class="users-table-container">
-                <table class="users-table">
-                    <thead>
-                        <tr>
-                            <th>Usuario</th>
-                            <th>Dirección</th>
-                            <th>Tipo de Conexión</th>
-                            <th>Fecha de Conexión</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Juan Pérez García</td>
-                            <td>Av. Central #123, Col. Centro</td>
-                            <td>Residencial</td>
-                            <td>15/03/2024</td>
-                            <td><span class="status active">Activo</span></td>
-                        </tr>
-                        <tr>
-                            <td>María Rodríguez López</td>
-                            <td>Calle Flores #45, Col. Jardines</td>
-                            <td>Residencial</td>
-                            <td>22/03/2024</td>
-                            <td><span class="status active">Activo</span></td>
-                        </tr>
-                        <tr>
-                            <td>Restaurant "El Sazón"</td>
-                            <td>Plaza Comercial #78</td>
-                            <td>Comercial</td>
-                            <td>05/04/2024</td>
-                            <td><span class="status active">Activo</span></td>
-                        </tr>
-                        <tr>
-                            <td>Carlos Hernández</td>
-                            <td>Privada Roble #12</td>
-                            <td>Residencial</td>
-                            <td>18/04/2024</td>
-                            <td><span class="status pending">Pendiente</span></td>
-                        </tr>
-                        <tr>
-                            <td>Escuela Primaria Federal</td>
-                            <td>Av. Educación #200</td>
-                            <td>Comercial</td>
-                            <td>10/05/2024</td>
-                            <td><span class="status active">Activo</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+            <h2 style="text-align: center; color: var(--secondary); margin-bottom: 2rem;">Sistema de Reclamos</h2>
 
-    <!-- Contacto -->
-    <section id="contacto">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contacto</h2>
-                <p>Solicita tu conexión o resuelve tus dudas sobre nuestros servicios</p>
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showReclamoTab('nuevo')">Nuevo Reclamo</button>
+                <button class="tab-btn" onclick="showReclamoTab('consultar')">Consultar Estado</button>
             </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Información de Contacto</h3>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <h4>Dirección</h4>
-                            <p>Av. Principal #123, Colonia Centro, San Miguel</p>
-                        </div>
+
+            <!-- Nuevo Reclamo -->
+            <div id="nuevoReclamo" class="form-container">
+                <h3 style="color: var(--secondary); margin-bottom: 1.5rem;">Reportar Nuevo Problema</h3>
+                <form onsubmit="handleReclamo(event)">
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" required placeholder="Ingrese su nombre">
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <h4>Teléfono</h4>
-                            <p>(021) 456-7890</p>
-                        </div>
+                    <div class="form-group">
+                        <label>Número de Cliente</label>
+                        <input type="text" required placeholder="Ingrese su número de cliente">
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h4>Email</h4>
-                            <p>info@aguateriasanmiguel.com.py</p>
-                        </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" required placeholder="Ej: 011-1234-5678">
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div>
-                            <h4>Horario de Atención</h4>
-                            <p>Lunes a Viernes: 7:00 AM - 6:00 PM</p>
-                            <p>Sábado: 8:00 AM - 12:00 PM</p>
-                        </div>
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" required placeholder="ejemplo@correo.com">
                     </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <input type="text" placeholder="Nombre completo" required>
-                        <input type="email" placeholder="Correo electrónico" required>
-                        <input type="tel" placeholder="Teléfono">
+                    <div class="form-group">
+                        <label>Tipo de Problema</label>
                         <select required>
-                            <option value="">Selecciona un servicio</option>
-                            <option value="residencial">Conexión Residencial</option>
-                            <option value="comercial">Conexión Comercial</option>
-                            <option value="mantenimiento">Mantenimiento</option>
-                            <option value="reparacion">Reparación</option>
+                            <option value="">Seleccione...</option>
+                            <option value="fuga">Fuga de Agua</option>
+                            <option value="falta">Falta de Agua</option>
+                            <option value="presion">Baja Presión</option>
+                            <option value="calidad">Calidad del Agua</option>
+                            <option value="facturacion">Problema de Facturación</option>
                             <option value="otro">Otro</option>
                         </select>
-                        <textarea placeholder="Mensaje o detalles de tu solicitud" required></textarea>
-                        <button type="submit" class="btn">Enviar Solicitud</button>
-                    </form>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción del Problema</label>
+                        <textarea required placeholder="Describa detalladamente el problema..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Ubicación del Problema</label>
+                        <p style="font-size: 0.9rem; color: var(--dark-gray); margin-bottom: 0.5rem;">
+                            Haga clic en el mapa para marcar la ubicación exacta del problema
+                        </p>
+                        <div id="map"></div>
+                        <input type="hidden" id="lat" name="lat">
+                        <input type="hidden" id="lng" name="lng">
+                    </div>
+                    <div class="form-group">
+                        <label>Adjuntar Imágenes (máximo 3)</label>
+                        <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--primary);"></i>
+                            <p>Haga clic para seleccionar archivos</p>
+                            <input type="file" id="fileInput" accept="image/*" multiple onchange="showFileNames(this)">
+                        </div>
+                        <div id="fileNames" style="margin-top: 0.5rem; font-size: 0.9rem;"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i> Enviar Reclamo
+                    </button>
+                </form>
+            </div>
+
+            <!-- Consultar Reclamo -->
+            <div id="consultarReclamo" class="form-container" style="display: none;">
+                <h3 style="color: var(--secondary); margin-bottom: 1.5rem;">Consultar Estado del Reclamo</h3>
+                <form onsubmit="handleConsultaReclamo(event)">
+                    <div class="form-group">
+                        <label>Número de Reclamo o DNI</label>
+                        <input type="text" required placeholder="Ingrese el número de reclamo">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-search"></i> Consultar
+                    </button>
+                </form>
+                <div id="reclamoResult" style="margin-top: 2rem; display: none;">
+                    <div style="background: var(--gray); padding: 1.5rem; border-radius: 10px;">
+                        <h4 style="color: var(--secondary);">Reclamo #<span id="reclamoId"></span></h4>
+                        <p style="margin: 0.5rem 0;"><strong>Tipo:</strong> <span id="reclamoTipo"></span></p>
+                        <p style="margin: 0.5rem 0;"><strong>Fecha:</strong> <span id="reclamoFecha"></span></p>
+                        <p style="margin: 0.5rem 0;"><strong>Estado:</strong> <span id="reclamoEstado"></span></p>
+                        <p style="margin: 0.5rem 0;"><strong>Descripción:</strong> <span id="reclamoDesc"></span></p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
+    <!-- SECCIÓN CONTACTO -->
+    <section id="contacto" class="section">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Aguatería San Miguel</h3>
-                    <p>Servicio de agua potable de calidad para hogares y negocios con más de 20 años de experiencia.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Servicios</h3>
-                    <ul class="footer-links">
-                        <li><a href="#servicios">Conexión Residencial</a></li>
-                        <li><a href="#servicios">Conexión Comercial</a></li>
-                        <li><a href="#servicios">Mantenimiento</a></li>
-                        <li><a href="#servicios">Reparaciones</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Enlaces Rápidos</h3>
-                    <ul class="footer-links">
-                        <li><a href="#inicio">Inicio</a></li>
-                        <li><a href="#informaciones">Informaciones</a></li>
-                        <li><a href="#costos">Costos</a></li>
-                        <li><a href="#usuarios">Usuarios</a></li>
-                        <li><a href="#contacto">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Suscríbete</h3>
-                    <p>Recibe información sobre mantenimiento y novedades de nuestro servicio.</p>
-                    <form>
-                        <input type="email" placeholder="Tu correo electrónico" style="width: 100%; padding: 10px; margin-bottom: 10px; border: none; border-radius: 5px;">
-                        <button type="submit" class="btn" style="width: 100%;">Suscribirse</button>
+            <h2 style="text-align: center; color: var(--secondary); margin-bottom: 2rem;">Contacto</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="form-container">
+                    <h3 style="color: var(--secondary); margin-bottom: 1.5rem;">Envíanos un Mensaje</h3>
+                    <form onsubmit="handleContacto(event)">
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" required placeholder="Tu nombre">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" required placeholder="tu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Asunto</label>
+                            <input type="text" required placeholder="Motivo de contacto">
+                        </div>
+                        <div class="form-group">
+                            <label>Mensaje</label>
+                            <textarea required placeholder="Escribe tu mensaje aquí..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-envelope"></i> Enviar Mensaje
+                        </button>
                     </form>
                 </div>
+
+                <div>
+                    <div style="background: var(--gray); padding: 2rem; border-radius: 15px; margin-bottom: 2rem;">
+                        <h3 style="color: var(--secondary); margin-bottom: 1rem;">
+                            <i class="fas fa-question-circle"></i> Preguntas Frecuentes
+                        </h3>
+                        <details style="margin-bottom: 1rem;">
+                            <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem; background: var(--white); border-radius: 5px; margin-bottom: 0.5rem;">
+                                ¿Cómo puedo pagar mi factura?
+                            </summary>
+                            <p style="padding: 0.5rem;">Puede pagar a través de nuestra página web, en puntos de pago autorizados, o mediante transferencia bancaria.</p>
+                        </details>
+                        <details style="margin-bottom: 1rem;">
+                            <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem; background: var(--white); border-radius: 5px; margin-bottom: 0.5rem;">
+                                ¿Qué hago si hay una fuga?
+                            </summary>
+                            <p style="padding: 0.5rem;">Repórtela inmediatamente a través de nuestro sistema de reclamos o llamando al 0800-555-AGUA.</p>
+                        </details>
+                        <details style="margin-bottom: 1rem;">
+                            <summary style="cursor: pointer; font-weight: 600; padding: 0.5rem; background: var(--white); border-radius: 5px; margin-bottom: 0.5rem;">
+                                ¿Cómo solicito un nuevo servicio?
+                            </summary>
+                            <p style="padding: 0.5rem;">Debe acercarse a nuestras oficinas con la documentación requerida o contactarnos telefónicamente.</p>
+                        </details>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, var(--primary), var(--secondary)); padding: 2rem; border-radius: 15px; color: var(--white); text-align: center;">
+                        <h3 style="margin-bottom: 1rem;">
+                            <i class="fab fa-whatsapp"></i> Atención por WhatsApp
+                        </h3>
+                        <p style="margin-bottom: 1rem;">Chatea con nosotros de inmediato</p>
+                        <a href="https://wa.me/5491112345678" target="_blank" class="btn btn-primary" style="background: var(--white); color: var(--success);">
+                            <i class="fab fa-whatsapp"></i> Iniciar Chat
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2024 Aguatería San Miguel. Todos los derechos reservados.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <h4 style="margin-bottom: 1rem;">
+                        <i class="fas fa-tint"></i> Aguatería San Miguel
+                    </h4>
+                    <p>Servicio de agua potable confiable para tu comunidad desde 1985.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Enlaces Rápidos</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#" onclick="showSection('inicio')" style="color: var(--light-blue);">Inicio</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" onclick="showSection('usuarios')" style="color: var(--light-blue);">Portal de Usuarios</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#" onclick="showSection('reclamos')" style="color: var(--light-blue);">Reclamos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Emergencias</h4>
+                    <p><strong>Línea 24 horas:</strong></p>
+                    <p style="font-size: 1.5rem; font-weight: bold;">0800-555-2482</p>
+                </div>
             </div>
+            <hr style="border: 1px solid rgba(255,255,255,0.2); margin: 2rem 0;">
+            <p>&copy; 2025 Aguatería San Miguel. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <script>
-        // Menú móvil
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
-        
-        // Smooth scroll para enlaces internos
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+        // Variables globales
+        let map;
+        let marker;
+        let isLoggedIn = false;
+
+        // Inicializar mapa
+        function initMap() {
+            // Coordenadas por defecto (San Miguel, Buenos Aires)
+            const defaultCoords = [-34.5441, -58.7110];
+            
+            map = L.map('map').setView(defaultCoords, 14);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            map.on('click', function(e) {
+                if (marker) {
+                    map.removeLayer(marker);
                 }
+                marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+                document.getElementById('lat').value = e.latlng.lat;
+                document.getElementById('lng').value = e.latlng.lng;
             });
-        });
-        
-        // Manejo del formulario de contacto
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        }
+
+        // Navegación
+        function showSection(sectionName) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionName).classList.add('active');
+
+            // Inicializar mapa si se muestra la sección de reclamos
+            if (sectionName === 'reclamos' && !map) {
+                setTimeout(initMap, 100);
+            }
+
+            // Cerrar menú móvil
+            document.getElementById('navLinks').classList.remove('active');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Tabs de usuarios
+        function showUserTab(tab) {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registroForm').style.display = 'none';
+            document.getElementById('recuperarForm').style.display = 'none';
+
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(t => t.classList.remove('active'));
+
+            if (tab === 'login') {
+                document.getElementById('loginForm').style.display = 'block';
+                tabs[0].classList.add('active');
+            } else if (tab === 'registro') {
+                document.getElementById('registroForm').style.display = 'block';
+                tabs[1].classList.add('active');
+            } else if (tab === 'recuperar') {
+                document.getElementById('recuperarForm').style.display = 'block';
+                tabs[2].classList.add('active');
+            }
+        }
+
+        // Tabs de reclamos
+        function showReclamoTab(tab) {
+            document.getElementById('nuevoReclamo').style.display = 'none';
+            document.getElementById('consultarReclamo').style.display = 'none';
+
+            const tabs = document.querySelectorAll('#reclamos .tab-btn');
+            tabs.forEach(t => t.classList.remove('active'));
+
+            if (tab === 'nuevo') {
+                document.getElementById('nuevoReclamo').style.display = 'block';
+                tabs[0].classList.add('active');
+            } else if (tab === 'consultar') {
+                document.getElementById('consultarReclamo').style.display = 'block';
+                tabs[1].classList.add('active');
+            }
+        }
+
+        // Handlers de formularios
+        function handleLogin(e) {
             e.preventDefault();
-            alert('¡Gracias por tu solicitud! Nos pondremos en contacto contigo pronto.');
-            this.reset();
+            
+            // Simulación de login exitoso
+            const userName = "Juan Pérez";
+            document.getElementById('userName').textContent = userName;
+            
+            // Ocultar formularios y mostrar panel
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('userPanel').style.display = 'block';
+            
+            // Ocultar tabs
+            document.querySelector('.tab-buttons').style.display = 'none';
+            
+            isLoggedIn = true;
+
+            // Mostrar alerta de éxito
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success';
+            alert.innerHTML = '<i class="fas fa-check-circle"></i> Inicio de sesión exitoso. Bienvenido!';
+            document.querySelector('#usuarios .container').insertBefore(alert, document.querySelector('#usuarios .container').firstChild);
+            
+            setTimeout(() => alert.remove(), 3000);
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            document.getElementById('userPanel').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            document.querySelector('.tab-buttons').style.display = 'flex';
+            
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success';
+            alert.innerHTML = '<i class="fas fa-sign-out-alt"></i> Sesión cerrada correctamente.';
+            document.querySelector('#usuarios .container').insertBefore(alert, document.querySelector('#usuarios .container').firstChild);
+            
+            setTimeout(() => alert.remove(), 3000);
+        }
+
+        function handleRegistro(e) {
+            e.preventDefault();
+            
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success';
+            alert.innerHTML = '<i class="fas fa-check-circle"></i> Registro exitoso! Por favor, inicie sesión con sus credenciales.';
+            document.querySelector('#usuarios .container').insertBefore(alert, document.querySelector('#usuarios .container').firstChild);
+            
+            setTimeout(() => {
+                alert.remove();
+                showUserTab('login');
+            }, 2000);
+        }
+
+        function handleRecuperar(e) {
+            e.preventDefault();
+            
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success';
+            alert.innerHTML = '<i class="fas fa-envelope"></i> Se ha enviado un enlace de recuperación a su correo electrónico.';
+            document.querySelector('#usuarios .container').insertBefore(alert, document.querySelector('#usuarios .container').firstChild);
+            
+            setTimeout(() => alert.remove(), 4000);
+        }
+
+        function handleReclamo(e) {
+            e.preventDefault();
+            
+            // Generar número de reclamo aleatorio
+            const reclamoId = 'REC-' + Math.floor(Math.random() * 100000);
+            
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success';
+            alert.innerHTML = `<i class="fas fa-check-circle"></i> <strong>Reclamo registrado exitosamente!</strong><br>
+                Su número de reclamo es: <strong>${reclamoId}</strong><br>
+                Guarde este número para consultar el estado de su reclamo.`;
+            document.querySelector('#reclamos .container').insertBefore(alert, document.querySelector('#reclamos .container').firstChild);
+            
+            // Limpiar formulario
+            e.target.reset();
+            if (marker) {
+                map.removeLayer(marker);
+                marker = null;
+            }
+            document.getElementById('fileNames').innerHTML = '';
+            
+            setTimeout(() => alert.remove(), 6000);
+        }
+
+        function handleConsultaReclamo(e) {
+            e.preventDefault();
+            
+            // Simular consulta de reclamo
+            const estados = ['Pendiente', 'En proceso', 'Resuelto'];
+            const tipos = ['Fuga de Agua', 'Falta de Agua', 'Baja Presión'];
+            const randomEstado = estados[Math.floor(Math.random() * estados.length)];
+            const randomTipo = tipos[Math.floor(Math.random() * tipos.length)];
+            
+            document.getElementById('reclamoId').textContent = 'REC-' + Math.floor(Math.random() * 100000);
+            document.getElementById('reclamoTipo').textContent = randomTipo;
+            document.getElementById('reclamoFecha').textContent = '20/10/2025';
+            document.getElementById('reclamoDesc').textContent = 'Problema reportado en Av. Principal 1234';
+            
+            let estadoHTML = '';
+            if (randomEstado === 'Pendiente') {
+                estadoHTML = '<span class="status-badge status-pending">Pendiente</span>';
+            } else if (randomEstado === 'En proceso') {
+                estadoHTML = '<span class="status-badge status-processing">En proceso</span>';
+            } else {
+                estadoHTML = '<span class="status-badge status-resolved">Resuelto</span>';
+            }
+            
+            document.getElementById('reclamoEstado').innerHTML = estadoHTML;
+            document.getElementById('reclamoResult').style.display = 'block';
+        }
+
+        function handleContacto(e) {
+            e.preventDefault();
+            
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success';
+            alert.innerHTML = '<i class="fas fa-check-circle"></i> Mensaje enviado exitosamente. Le responderemos a la brevedad.';
+            document.querySelector('#contacto .container').insertBefore(alert, document.querySelector('#contacto .container').firstChild);
+            
+            e.target.reset();
+            setTimeout(() => alert.remove(), 4000);
+        }
+
+        function showFileNames(input) {
+            const fileNames = document.getElementById('fileNames');
+            if (input.files.length > 0) {
+                let names = '<strong>Archivos seleccionados:</strong><br>';
+                for (let i = 0; i < Math.min(input.files.length, 3); i++) {
+                    names += `<i class="fas fa-image" style="color: var(--primary);"></i> ${input.files[i].name}<br>`;
+                }
+                if (input.files.length > 3) {
+                    names += '<em style="color: var(--danger);">Solo se procesarán los primeros 3 archivos</em>';
+                }
+                fileNames.innerHTML = names;
+            }
+        }
+
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            const nav = document.getElementById('navLinks');
+            const toggle = document.querySelector('.menu-toggle');
+            if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+                nav.classList.remove('active');
+            }
         });
     </script>
 </body>
